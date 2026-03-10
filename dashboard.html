@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinBridge Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+    <h2>Welcome, <span id="userName"></span>!</h2>
+    <button id="logoutBtn">Logout</button>
+
+    <!-- BALANCE -->
+    <div class="balance-section">
+        <h3>Your Wallet</h3>
+        <p id="balance">Balance: KES 0</p>
+    </div>
+
+    <!-- DEPOSIT -->
+    <div class="form-section">
+        <h3>Deposit Money</h3>
+        <form id="depositForm">
+            <input type="number" id="depositAmount" placeholder="Amount" required>
+            <button type="submit">Deposit</button>
+        </form>
+    </div>
+
+    <!-- SEND MONEY -->
+    <div class="form-section">
+        <h3>Send Money</h3>
+        <form id="sendForm">
+            <input type="text" id="receiverPhone" placeholder="Receiver Phone" required>
+            <input type="number" id="sendAmount" placeholder="Amount" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- TRANSACTIONS -->
+    <div class="transaction-section">
+        <h3>Transaction History</h3>
+        <table id="transactionTable">
+            <tr>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+    // Display user name
+    const userName = localStorage.getItem("name") || "User";
+    document.getElementById("userName").innerText = userName;
+
+    // Fetch balance and transactions on load
+    window.addEventListener("load", () => {
+        if (requireLogin()) {
+            getWalletBalance();
+            getTransactions();
+        }
+    });
+</script>
+</body>
+</html>
